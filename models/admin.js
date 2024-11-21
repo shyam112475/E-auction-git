@@ -17,6 +17,8 @@ const Admin = sequelize.define('Admin',{
           type: DataTypes.STRING,
           allowNull: false,
         },
-        isAd
+        
   
 })
+
+module.exports = Admin
