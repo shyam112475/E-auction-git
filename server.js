@@ -7,6 +7,7 @@ const port = process.env.PORT
 const static_files = path.join(__dirname,'public')
 const userRoute = require('./routes/userRoute')
 const pageRoute = require('./routes/page')
+const adminRoute = require('./routes/adminRoute')
 //middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -16,6 +17,7 @@ console.log(userRoute)
 app.get('/', (req, res) => res.send('Hello World!'))
 app.use('/user',userRoute)
 app.use('/page',pageRoute)
+app.use('/admin',adminRoute)
 
 
 app.listen(port, () => console.log(`listening to the port number ${port}`))
