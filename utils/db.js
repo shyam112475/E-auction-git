@@ -5,6 +5,7 @@ const sequelize = new Sequelize(process.env.DBNAME,process.env.USER,process.env.
     dialect:process.env.DIALECT
 })
 
+
 sequelize.sync()
 .then(()=>{console.log('database connection is established')
 })

@@ -1,4 +1,5 @@
 const { sequelize, DataTypes } = require('../utils/db');
+const Artist = require('../models/artistmodel')
 
 
 const User = sequelize.define('User', {
@@ -40,6 +41,8 @@ const User = sequelize.define('User', {
   tableName: 'Users', 
   timestamps: false,  
 })
+User.hasOne(Artist, { foreignKey: 'user_id' });
+
 
 
 

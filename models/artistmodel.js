@@ -1,4 +1,5 @@
 const { sequelize, DataTypes } = require('../utils/db');
+//const User = require('../models/user')
 
 
 const Artist = sequelize.define('Artist',
@@ -36,5 +37,6 @@ const Artist = sequelize.define('Artist',
     timestamps: true, // since we're manually handling created_at and updated_at
   }
 );
+
 
 module.exports = Artist;
