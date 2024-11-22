@@ -1,12 +1,12 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
-const { where } = require('sequelize');
+//const { where } = require('sequelize');
 
 exports.signup = async(req,res) => {
     try{
-    const {name,email,password} = req.body;
-    if(!name||!email||!password){
+    const {user_id,name,email,password,phone,address,role} = req.body;
+    if(!user_id||!name||!email||!password||!phone||!address){
         res.status(400).json('all fields reuired')
     }
     const existingUser = await User.findOne({where:{email}});
@@ -14,7 +14,7 @@ exports.signup = async(req,res) => {
         res.status(400).json('user already exists pls try with another email')
     }
     const hashpassword = await bcrypt.hash(password,10)
-    const user =  new User({name:name,email:email,password:hashpassword})
+    const user =  new User({user_id:user_id,name:name,email:email,password:hashpassword,phone:phone,address:address})
     const data = await user.save()
     res.status(201).json(data)
 }catch(err){
