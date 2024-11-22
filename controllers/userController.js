@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
-//const { where } = require('sequelize');
+
 
 exports.signup = async(req,res) => {
     try{
@@ -14,7 +14,7 @@ exports.signup = async(req,res) => {
         res.status(400).json('user already exists pls try with another email')
     }
     const hashpassword = await bcrypt.hash(password,10)
-    const user =  new User({user_id:user_id,name:name,email:email,password:hashpassword,phone:phone,address:address})
+    const user =  new User({user_id:user_id,name:name,email:email,password:hashpassword,phone:phone,address:address,role:role})
     const data = await user.save()
     res.status(201).json(data)
 }catch(err){
@@ -38,6 +38,28 @@ exports.signin = async(req,res) => {
     res.status(400).json('user signed In in')
 }catch(err){
     res.status(500).json('internal server error'+err)
+} 
 }
-    
+
+exports.updateUser = async(req,res) => {
+    try{
+    const {name,email,password,phone,address} = req.body
+    if(!name||!email||!password||!phone||!address) return res.status(400).json('all fields reuired')
+    const updateUser = await User.update({name,email,password,phone,address})
+    res.status(201).json({msg:'details updated'},updateUser)
+}catch(err){
+    res.status(500).json({msg:'server error'},err)
+}
+}
+
+exports.deleteUser = async(req,res) => {
+try{
+    const {user_id} = req.body
+    const ifmatch = await User.findOne({where:{user_id}})
+    if(!ifmatch) return res.status(400).json('user  not found pls enter correct user_id')
+    await User.destroy({where:{user_id}})
+   res.status(200).json('account deleted')
+}catch(err){
+    res.status(500).json('server error',err)
+}
 }

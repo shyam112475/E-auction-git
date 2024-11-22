@@ -1,7 +1,6 @@
 const { sequelize, DataTypes } = require('../utils/db');
 const Artist = require('../models/artistmodel')
 
-
 const User = sequelize.define('User', {
   user_id: {
     type: DataTypes.INTEGER,
@@ -42,8 +41,5 @@ const User = sequelize.define('User', {
   timestamps: false,  
 })
 User.hasOne(Artist, { foreignKey: 'user_id' });
-
-
-
 
 module.exports = User;
