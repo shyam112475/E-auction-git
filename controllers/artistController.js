@@ -9,3 +9,13 @@ exports.artistinfo = async(req,res) => {
     await artist.save()
     res.status(201).json('artist profile created')
 }
+
+exports.fetchArtists = async(req,res) => {
+    try{
+      const getArtists = await Artist.findAndCountAll()
+      res.status(200).json(getArtists)
+      
+    }catch(err){
+       res.status(500).json(err)
+    }
+  }
