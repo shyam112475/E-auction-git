@@ -1,27 +1,29 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service:"gmail",
+  host: 'smtp.ethereal.email',
+  port: 587,
   auth: {
-  user: 'pranjalgeete@gmail.com',
-        pass: 'Shyam@123'
-  },
+      user: 'dariana62@ethereal.email',
+      pass: '1zJCsg97wV92NPHvGs'
+  }
 });
 
+const resetUrl = `http://localhost:3000/reset-pass/${token}`;
 const mailOptions = {
-    from:'pranjalgeete@gmail.com',    // Sender's email address
-    to: 'shyamrajput.me@gmail.com',    // Recipient's email address
-    subject: 'Test Email from Node.js', // Subject of the email
-    text: 'Hello, this is a test email sent using Nodemailer and Gmail!', // Plain text body
-    // html: '<h1>Hello, this is a test email sent using Nodemailer and Gmail!</h1>'  // Optional: HTML body
-  };
-  // Send the email
+  to: email,
+  from: 'dariana62@ethereal.email',
+  subject: 'password reset request',
+  text: `Click the following link to reset your password: ${resetUrl}`,
+};
+
+ 
 const main = transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      // If there's an error, log it
+      
       console.log('Error occurred:', error);
     } else {
-      // If the email is sent successfully, log the response
+      
       console.log('Email sent successfully:', info.response);
     }
   });

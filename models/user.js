@@ -23,6 +23,12 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
+  resetPasswordToken:{
+    type:DataTypes.STRING
+  } ,
+  resetPasswordExpires:{
+    type:Date
+  },
   role: {
     type: DataTypes.ENUM('bidder', 'artist'),
     defaultValue: 'bidder',
