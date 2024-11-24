@@ -10,3 +10,4 @@ exports.artdetails = async(req,res) => {
   await artwork.save()
   res.status(200).json("uploaded")
 }
+

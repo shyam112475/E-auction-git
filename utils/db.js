@@ -1,12 +1,12 @@
 const {Sequelize,DataTypes} = require('sequelize')
 
-const sequelize = new Sequelize('e_auction','root','Shyam@123',{
-    host:'localhost',
-    dialect:'mysql'
+const sequelize = new Sequelize(process.env.DBNAME,process.env.USER,process.env.PASSWORD,{
+    host:process.env.HOST,
+    dialect:"mysql"
 })
 
 
-sequelize.authenticate()
+sequelize.sync()
 .then(()=>{console.log('database connection is established')
 })
 .catch((err)=>{

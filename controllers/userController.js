@@ -12,6 +12,9 @@ exports.signup = async(req,res) => {
     const hashpassword = await bcrypt.hash(password,10)
     const user =  new User({user_id:user_id,name:name,email:email,password:hashpassword,phone:phone,address:address,role:role})
     const data = await user.save()
+    if(role === "artist"){
+        res.staus(200).json('thankyou (: pls complete your profile to sell artworks')
+    }
     res.status(201).json(data)
 }catch(err){
     res.status(500).json(err)
@@ -26,7 +29,7 @@ exports.signin = async(req,res) => {
     if(!user) return res.status(400).json('invalid user name or password')
     const isMatch = await bcrypt.compare(password,user.password)
     if(!isMatch) return res.status(400).json('invalid username or password')
-    const token =  jwt.sign(email,"tumharanamhaihinhilistmain")
+    const token =  jwt.sign(email,process.env.SECKEY)
     res.cookie('token',token)
     res.status(200).json(user)
 
